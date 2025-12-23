@@ -1,0 +1,7 @@
+{
+  "name": "Oráculo 7",
+  "description": "Uma jornada espiritual moderna unindo Tarot, Astrologia, Numerologia e Cabala com sabedoria ancestral e tecnologia de ponta.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
