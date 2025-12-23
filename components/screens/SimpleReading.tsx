@@ -20,7 +20,7 @@ const SimpleReading: React.FC<SimpleReadingProps> = ({ type, title, onBack, user
     const fetchContent = async () => {
       setLoading(true);
       try {
-        const result = await generateContemplativeContent(type, context);
+        const result = await generateContemplativeContent(type, userProfile || null, context);
         setContent(result);
       } catch (err) {
         setContent("O silêncio é a resposta neste momento.");
@@ -29,7 +29,7 @@ const SimpleReading: React.FC<SimpleReadingProps> = ({ type, title, onBack, user
       }
     };
     fetchContent();
-  }, [type, context]);
+  }, [type, context, userProfile]);
 
   return (
     <div className="space-y-12 animate-in slide-in-from-right duration-500 h-full flex flex-col">
@@ -58,7 +58,7 @@ const SimpleReading: React.FC<SimpleReadingProps> = ({ type, title, onBack, user
       </div>
 
       <footer className="text-center pb-12">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-slate-600 font-bold">Oráculo 7 • Presença</p>
+        <p className="text-[10px] uppercase tracking-[0.4em] text-slate-600 font-bold">Oráculo 7 • Para {userProfile?.name?.split(' ')[0]}</p>
       </footer>
     </div>
   );

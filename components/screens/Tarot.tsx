@@ -5,13 +5,15 @@ import { TAROT_CARDS } from '../../constants';
 import { ArrowLeft, RefreshCw } from 'lucide-react';
 import ReactMarkdown from 'https://esm.sh/react-markdown';
 import Logo from '../Logo';
+import { UserProfile } from '../../types';
 
 interface TarotProps {
   onBack: () => void;
   onSave: (reading: any) => void;
+  profile: UserProfile | null;
 }
 
-const Tarot: React.FC<TarotProps> = ({ onBack, onSave }) => {
+const Tarot: React.FC<TarotProps> = ({ onBack, onSave, profile }) => {
   const [loading, setLoading] = useState(false);
   const [reading, setReading] = useState<string | null>(null);
   const [card, setCard] = useState<string | null>(null);
@@ -22,7 +24,7 @@ const Tarot: React.FC<TarotProps> = ({ onBack, onSave }) => {
     setCard(randomCard);
     
     try {
-      const result = await generateTarotReading(randomCard);
+      const result = await generateTarotReading(randomCard, profile);
       setReading(result);
       onSave({
         type: 'tarot',
@@ -53,7 +55,7 @@ const Tarot: React.FC<TarotProps> = ({ onBack, onSave }) => {
             <div className="mt-4 text-[#D4AF37] opacity-20 text-[10px] tracking-[1em] font-bold uppercase">ORÁCULO 7</div>
           </div>
           <p className="text-slate-400 text-center px-12 text-sm italic leading-relaxed">
-            Concentre-se em sua intenção e toque no portal para revelar sua mensagem.
+            {profile?.name}, concentre-se na sua intenção de <span className="text-amber-500/70">"{profile?.intention}"</span> e toque para revelar sua mensagem.
           </p>
           <button
             disabled={loading}

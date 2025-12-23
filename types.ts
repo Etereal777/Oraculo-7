@@ -1,6 +1,7 @@
 
 export type Screen = 
   | 'onboarding' 
+  | 'ritual'
   | 'dashboard' 
   | 'tarot' 
   | 'astrology' 
@@ -15,6 +16,8 @@ export type Screen =
   | 'cycle'
   | 'mirror';
 
+export type LifeMoment = 'seed' | 'transition' | 'conflict' | 'closing';
+
 export interface Reading {
   id: string;
   type: string;
@@ -28,11 +31,18 @@ export interface UserProfile {
   name: string;
   birthDate: string;
   birthTime?: string;
-  birthCity?: string;
+  birthCity: string;
+  intention: string;
+  lifeMoment: LifeMoment;
 }
 
 export interface DailyIntention {
   date: string;
   word: string;
   reflection: string;
+}
+
+export interface DailyCache {
+  date: string;
+  message: string;
 }

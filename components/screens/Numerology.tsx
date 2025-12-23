@@ -3,13 +3,18 @@ import React, { useState } from 'react';
 import { generateNumerologyReading } from '../../services/gemini';
 import { ArrowLeft, Hash } from 'lucide-react';
 import ReactMarkdown from 'https://esm.sh/react-markdown';
+// Added UserProfile import
+import { UserProfile } from '../../types';
 
 interface NumerologyProps {
   onBack: () => void;
   onSave: (reading: any) => void;
+  // Added profile prop
+  profile: UserProfile | null;
 }
 
-const Numerology: React.FC<NumerologyProps> = ({ onBack, onSave }) => {
+// Added profile to destructuring
+const Numerology: React.FC<NumerologyProps> = ({ onBack, onSave, profile }) => {
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [reading, setReading] = useState<string | null>(null);
@@ -20,7 +25,8 @@ const Numerology: React.FC<NumerologyProps> = ({ onBack, onSave }) => {
 
     setLoading(true);
     try {
-      const result = await generateNumerologyReading(value);
+      // Pass profile as second argument
+      const result = await generateNumerologyReading(value, profile);
       setReading(result);
       onSave({
         type: 'numerology',
